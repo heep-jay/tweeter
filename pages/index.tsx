@@ -1,12 +1,19 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+
 import { Sidebar, Feed, Widgets } from '../components';
+import { Tweet } from '../typings';
+import { fetchTweets } from '../utils/fetchTweets'
 
+interface Props {
+  tweets: Tweet[]
+}
 
-const Home: NextPage = () => {
+const Home = ({tweets} : Props) => {
+  console.log(tweets)
   return (
-    <div className="mx-auto max-w-7xl max-h-screen overflow-hidden  scrollbar-thumb-black ">
+    <div className="mx-auto max-w-6xl max-h-screen overflow-y-scroll scrollbar-hide scrollbar-thumb-black ">
       <Head>
         <title>Home/ Twitter</title>
         <link rel="icon" href="/favicon.png" />
@@ -17,7 +24,8 @@ const Home: NextPage = () => {
         <Sidebar/>
 
         {/* Feed */}
-        <Feed/>
+        <Feed tweets={tweets
+        }/>
 
         {/* widgets*/}
         <Widgets/>
@@ -29,3 +37,13 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const tweets = await fetchTweets();
+  console.log(tweets)
+  return {
+    props: {
+      tweets
+    }
+  }
+}

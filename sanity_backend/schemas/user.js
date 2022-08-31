@@ -1,8 +1,13 @@
 export default {
-  name: 'author',
-  title: 'Author',
+  name: 'user',
+  title: 'User',
   type: 'document',
   fields: [
+    {
+      name: 'username',
+      title: 'UserName',
+      type: 'string',
+    },
     {
       name: 'name',
       title: 'Name',

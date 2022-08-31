@@ -1,30 +1,27 @@
 export default {
-  name: 'post',
-  title: 'Post',
+  name: 'tweet',
+  title: 'Tweet',
   type: 'document',
   fields: [
     {
-      name: 'title',
-      title: 'Title',
+      name: 'text',
+      title: 'Text in tweet',
       type: 'string',
     },
     {
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
+      name: 'blockTweet',
+      title: 'Block Tweet',
+      description: 'ADMIN Controls: Toggle if tweet is inappropiate',
+      type: 'boolean',
     },
     {
-      name: 'author',
-      title: 'Author',
+      name: 'user',
+      title: 'User',
       type: 'reference',
-      to: {type: 'author'},
+      to: {type: 'user'},
     },
     {
-      name: 'mainImage',
+      name: 'tweetImage',
       title: 'Main image',
       type: 'image',
       options: {
@@ -32,34 +29,11 @@ export default {
       },
     },
     {
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
+      name: 'profileImage',
+      title: 'Profile image',
+      type: 'string',
     },
-    {
-      name: 'publishedAt',
-      title: 'Published at',
-      type: 'datetime',
-    },
-    {
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent',
-    },
-  ],
 
-  preview: {
-    select: {
-      title: 'title',
-      author: 'author.name',
-      media: 'mainImage',
-    },
-    prepare(selection) {
-      const {author} = selection
-      return Object.assign({}, selection, {
-        subtitle: author && `by ${author}`,
-      })
-    },
-  },
+
+  ]
 }
